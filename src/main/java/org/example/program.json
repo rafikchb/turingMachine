@@ -1,0 +1,42 @@
+[
+  {
+    "name": "etat1",
+    "edges": [
+      {
+        "alphabet": "ABC",
+        "sens": "L",
+        "nextVertice": "etat2"
+      },
+      {
+        "alphabet": "ABCd",
+        "sens": "L",
+        "nextVertice": "etat3"
+      },
+      {
+        "alphabet": "ABC",
+        "sens": "r",
+        "nextVertice": "etat2"
+      }
+    ]
+  },
+  {
+    "name": "etat2",
+    "edges": [
+      {
+        "alphabet": "ABC",
+        "sens": "L",
+        "nextVertice": "etat2"
+      },
+      {
+        "alphabet": "ABCd",
+        "sens": "L",
+        "nextVertice": "etat3"
+      },
+      {
+        "alphabet": "ABC",
+        "sens": "r",
+        "nextVertice": "etat7"
+      }
+    ]
+  }
+]
