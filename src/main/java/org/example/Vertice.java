@@ -1,28 +1,28 @@
 package org.example;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import java.util.LinkedList;
+import java.util.HashMap;
 
 public class Vertice {
     private String name;
-    private LinkedList<Edge> edges = new LinkedList<Edge>();
-    private TuringMachine assosiatedTuringMachine =  null;
+    private HashMap<String, Edge> edges = new HashMap<String, Edge>();
+    public Vertice(JSONObject jsonVertice) {
 
-    public Vertice(JSONObject jsonVertice, TuringMachine assosiatedTuringMachine) {
-        // chaque vertice doit conaitre la machine de turing a la qeulle elle est asossier
-        this.assosiatedTuringMachine = assosiatedTuringMachine;
-        // extracting the vertice name
-        this.name = (String) ((JSONObject) jsonVertice).get("name");
-        // extracting all the edges of these vertice
-        JSONArray jsonEdges = (JSONArray) jsonVertice.get("edges");
+        this.name = (String) ((JSONObject) jsonVertice).get("state"); // setting the vertice name .
+        JSONArray jsonEdges = (JSONArray) jsonVertice.get("transitions");// getting all the transitions as edges.
+        if (jsonEdges == null) {
+            edges = null;
+            return;
+        }
         for (Object jsonEdge : jsonEdges) {
-            Edge edge = new Edge();
-            edge.setAlphabet((String) ((JSONObject) jsonEdge).get("alphabet"));
-            edge.setSens((String) ((JSONObject) jsonEdge).get("sens"));
-            edge.setNextVertice((String) ((JSONObject) jsonEdge).get("nextVertice"));
-            this.edges.add(edge);
+            String condition = (String) ((JSONObject) jsonEdge).get("read");
+            for (int i = 0; i < condition.length(); i++) {
+                Edge edge = new Edge();
+                edge.setReplace(((String) ((JSONObject) jsonEdge).get("replace")));
+                edge.setDirection((String) ((JSONObject) jsonEdge).get("direction"));
+                edge.setNextVertice((String) ((JSONObject) jsonEdge).get("nextState"));
+                this.edges.put(String.valueOf(condition.charAt(i)), edge);
+            }
         }
     }
 
@@ -30,17 +30,8 @@ public class Vertice {
         return name;
     }
 
-    public Vertice getNextVertice(String alphabet) {
-        // on parcour les edge de ce vertice
-        for (Edge edge : this.getEdges()) {
-            if (edge.getAlphabet().contains(alphabet)) {
-                return this.assosiatedTuringMachine.getVertices().get(edge.getNextVertice());
-            }
-        }
-        // pour dire que le vertice suivant na pas de suite .
-        return null;
-    }
-    public LinkedList<Edge> getEdges() {
-        return edges;
+    public Edge getNextEdge(String condition) {
+        if (edges == null) return null;
+        return edges.get(condition); // peut retourner null si la condition nai pas dans no transition , ou ida kayen edge sur kayen nex state
     }
 }

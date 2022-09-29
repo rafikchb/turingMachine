@@ -1,31 +1,31 @@
 package org.example;
-
 public class Edge {
-    private String alphabet;
-    private String sens;
+    private String direction;
     private String nextVertice;
+    private String replace;
 
-    public void setSens(String sens) {
-        this.sens = sens;
+    public String getReplace() {
+        return replace;
     }
 
-    public String getAlphabet() {
-        return alphabet;
+    public void setReplace(String replace) {
+        this.replace = replace;
     }
 
-    public String getSens() {
-        return sens;
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public String getNextVertice() {
         return nextVertice;
     }
 
-    public void setAlphabet(String alphabet) {
-        this.alphabet = alphabet;
-    }
-
     public void setNextVertice(String nextVertice) {
         this.nextVertice = nextVertice;
     }
+
 }
