@@ -15,7 +15,7 @@ public class TuringMachine {
 
     public TuringMachine(String fileName) {
         try {
-            FileReader program = new FileReader(new File(fileName));
+            FileReader program = new FileReader(fileName);
             JSONParser parser = new JSONParser();
             JSONObject jsonProgram = (JSONObject) parser.parse(program);
             // initialasing the tape with the input string
