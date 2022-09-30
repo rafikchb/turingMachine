@@ -49,8 +49,6 @@ public class Tape {
         return strBuffer;
     }
 
-    public int getIndex() {
-        return index;
-    }
+
 
 }

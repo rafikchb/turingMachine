@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         // reading the json file to create the machine

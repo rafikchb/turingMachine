@@ -6,20 +6,14 @@
       "state": "right",
       "transitions": [
         {
-          "read": "1",
-          "replace": "1",
+          "read": ["1", "0"],
+          "replace": "",
           "direction": "R",
           "nextState": "right"
         },
         {
-          "read": "0",
-          "replace": "0",
-          "direction": "R",
-          "nextState": "right"
-        },
-        {
-          "read": " ",
-          "replace": " ",
+          "read": [" "],
+          "replace": "",
           "direction": "L",
           "nextState": "carry"
         }
@@ -29,19 +23,13 @@
       "state": "carry",
       "transitions": [
         {
-          "read": "1",
+          "read": ["1"],
           "replace": "0",
           "direction": "L",
           "nextState": "carry"
         },
         {
-          "read": "0",
-          "replace": "1",
-          "direction": "L",
-          "nextState": "donne"
-        },
-        {
-          "read": " ",
+          "read": ["0", " "],
           "replace": "1",
           "direction": "L",
           "nextState": "donne"

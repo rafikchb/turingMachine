@@ -3,6 +3,14 @@ public class Edge {
     private String direction;
     private String nextVertice;
     private String replace;
+    private String condition ;
+
+
+
+
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
 
     public String getReplace() {
         return replace;

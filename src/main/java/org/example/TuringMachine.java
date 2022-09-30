@@ -3,14 +3,12 @@ package org.example;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
-import java.io.File;
 import java.io.FileReader;
 import java.util.HashMap;
 
 public class TuringMachine {
-    private Tape tape;// mon ruban .
-    private HashMap<String, Vertice> vertices = new HashMap<String, Vertice>(); // list des somet .
+    private Tape tape;
+    private HashMap<String, Vertice> vertices = new HashMap<String, Vertice>();
     private String initialState;
 
     public TuringMachine(String fileName) {
@@ -18,19 +16,13 @@ public class TuringMachine {
             FileReader program = new FileReader(fileName);
             JSONParser parser = new JSONParser();
             JSONObject jsonProgram = (JSONObject) parser.parse(program);
-            // initialasing the tape with the input string
             this.tape = new Tape((String) jsonProgram.get("input"));
-            // initialising the inisialState with the start state .
             this.initialState = (String) jsonProgram.get("startState");
-
             JSONArray jsonVertices = (JSONArray) jsonProgram.get("states");
             for (Object jsonVertice : jsonVertices) {
-                // creating a vertices
-                String verticeName = (String) ((JSONObject) jsonVertice).get("state");// setting the state name
-                Vertice vertice = new Vertice((JSONObject) jsonVertice);// creating the state as vertice .
-                // Vertice vertice = new Vertice((JSONObject) jsonVertice, this);// creating the state as vertice .
-
-                this.vertices.put(verticeName, vertice);// adding the state to the vertices hashmap .
+                String verticeName = (String) ((JSONObject) jsonVertice).get("state");
+                Vertice vertice = new Vertice((JSONObject) jsonVertice);
+                this.vertices.put(verticeName, vertice);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,13 +31,15 @@ public class TuringMachine {
 
     public String execute() throws InterruptedException {
         int i = 0;
-        System.out.println("Initial Tape : #" + tape.toString()+"#");
-
+        System.out.println("Initial Tape : #" + tape.toString() + "#");
         Vertice curentVertice = vertices.get(initialState);
         Edge nextEdge;
         do {
-            System.out.println("Round : " + i + " #" + tape.toString()+"#");
+            Thread.sleep(100);
+            // to slow down the print .
+            System.out.println("Round : " + i + " #" + tape.toString() + "#");
             i++;
+
             nextEdge = curentVertice.getNextEdge(tape.read());
             if (nextEdge != null) {
                 tape.write(nextEdge.getReplace(), nextEdge.getDirection());
